@@ -1,11 +1,14 @@
+/* eslint-disable */
 export default [
   {
-    path: "/about",
-    name: "About",
-    meta: { layout: "alternative" },
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "./About.vue"),
+    path: "/sample",
+    meta: { layout: "Alternative" },
+    component: () => import(/* webpackChunkName: "about" */ "./Sample.vue"),
+    children: [
+      { path: "", name: "AllSamples", meta: { layout: "Alternative" }, component: () => import("../../components/views-partials/sample/AllSamples.vue") },
+      { path: ":id", name: "One Sample", meta: { layout: "Alternative" }, component: () => import("../../components/views-partials/sample/OneSample.vue") },
+      { path: "create", name: "Create Sample", meta: { layout: "Alternative" }, component: () => import("../../components/views-partials/sample/CreateSample.vue") },
+      { path: ":id/edit", name: "Edit Sample", meta: { layout: "Alternative" }, component: () => import("../../components/views-partials/sample/EditSample.vue") },
+    ],
   },
 ];

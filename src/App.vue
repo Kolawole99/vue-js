@@ -7,12 +7,16 @@
 </template>
 
 <script>
-const defaultLayout = "default";
+const defaultLayout = "Default";
+import Alternative from "./layout/Alternative";
 export default {
   computed: {
     layout() {
       return (this.$route.meta.layout || defaultLayout) + "-layout";
     },
+  },
+  components: {
+    Alternative,
   },
 };
 </script>

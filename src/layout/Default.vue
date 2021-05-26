@@ -9,6 +9,7 @@
 <script>
 import Navigation from "../components/layouts-partials/Nav";
 export default {
+  name: "Default",
   components: {
     Navigation,
   },

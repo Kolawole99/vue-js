@@ -15,8 +15,8 @@ axios.defaults.headers.common["Authorization"] = USER;
 // eslint-disable-next-line
 axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
-Vue.component("auth-layout", Alternative);
-Vue.component("default-layout", Default);
+Vue.component("Alternative-layout", Alternative);
+Vue.component("Default-layout", Default);
 
 Vue.use(axios);
 Vue.use(store);

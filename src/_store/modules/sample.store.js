@@ -1,48 +1,72 @@
-import axios from "axios";
-import router from "../../_router/index";
+import ApiRequest from "./_requestType";
+
+let ApiReq = new ApiRequest();
+let url = "books/";
 
 const getDefaultState = () => {
   return {
-    registerSuccess: "",
-    userDetails: [],
-    registerError: "",
+    postOne: [],
+    postMany: [],
+    getAll: [],
+    getOne: [],
+    putOne: [],
+    deleteOne: [],
+    deleteMany: [],
+    searchByQuery: [],
   };
 };
 const state = getDefaultState();
 
-const getters = {
-  isAuthenticated: (state) => !!state.token,
-};
+const getters = {};
 
 const actions = {
-  resetState({ commit }) {
-    commit("resetState");
+  async resetState({ commit }) {
+    await commit("resetState");
   },
-  REGISTER({ commit }, authData) {
-    const requestOptions = {
-      email: authData.email,
-      first_name: authData.firstName,
-      last_name: authData.lastName,
-      phone: authData.phone,
-      username: authData.username,
-      password: authData.password1,
-      re_password: authData.password2,
-    };
-    return new Promise((resolve, reject) => {
-      axios
-        .post("users/", requestOptions)
-        .then((response) => {
-          commit("REGISTER_SUCCESS", JSON.parse(JSON.stringify(response)));
-          commit("REGISTER_ERROR", state.empty);
-          router.push("/login");
-          resolve(response);
-        })
-        .catch((err) => {
-          commit("REGISTER_ERROR", JSON.parse(JSON.stringify(err)));
-          commit("REGISTER_SUCCESS", state.empty);
-          reject(err);
-        });
-    });
+
+  async postOneSample({ commit }, data) {
+    try {
+      let request = await ApiReq.postOne(url, data);
+      commit("postOneSample", request);
+    } catch (error) {
+      commit("postOneSample", error.response);
+    }
+  },
+
+  async postManySamples({ commit }, data) {
+    try {
+      let request = await ApiReq.postMany(url, data);
+      commit("postManySamples", request);
+    } catch (error) {
+      commit("postManySamples", error.response);
+    }
+  },
+
+  async getAllSamples({ commit }) {
+    try {
+      let request = await ApiReq.getAll(url);
+      commit("getAllSamples", request);
+    } catch (error) {
+      commit("getAllSamples", error.response);
+    }
+  },
+
+  async getOneSample({ commit }, id) {
+    try {
+      let request = await ApiReq.getOne(url, id);
+      commit("getOneSample", request);
+    } catch (error) {
+      commit("getOneSample", error.response);
+    }
+  },
+
+  async putOneSample({ commit }, data) {
+    try {
+      let request = await ApiReq.putOne(url, data);
+      commit("putOneSample", request);
+    } catch (error) {
+      commit("putOneSample", error.response);
+    }
   },
 };
 
@@ -50,11 +74,20 @@ const mutations = {
   resetState(state) {
     Object.assign(state, getDefaultState());
   },
-  REGISTER_SUCCESS(state, response) {
-    state.registerSuccess = response;
+  postOneSample(state, response) {
+    state.postOne = response;
   },
-  REGISTER_ERROR(state, error) {
-    state.registerError = error;
+  postManySamples(state, response) {
+    state.postMany = response;
+  },
+  getAllSamples(state, response) {
+    state.getAll = response;
+  },
+  getOneSample(state, response) {
+    state.getOne = response;
+  },
+  putOneSample(state, response) {
+    state.putOne = response;
   },
 };
 
