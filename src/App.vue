@@ -8,15 +8,21 @@
 
 <script>
 const defaultLayout = "Default";
-import Alternative from "./layout/Alternative";
 export default {
   computed: {
     layout() {
       return (this.$route.meta.layout || defaultLayout) + "-layout";
     },
   },
-  components: {
-    Alternative,
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        const defaultName = "VueJS - Starter Template";
+        document.title = to.meta.title || defaultName;
+        return from;
+      },
+    },
   },
 };
 </script>
