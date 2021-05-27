@@ -1,145 +1,162 @@
+/* eslint-disable */
 import ApiRequest from "./_requestType";
 
 let ApiReq = new ApiRequest();
-let url = "books/";
 
-// State for returning all store state property data.
-const getDefaultState = () => {
-  return {
-    postOne: [],
-    postMany: [],
-    getAll: [],
-    getOne: [],
-    putOne: [],
-    putMany: [],
-    deleteOne: [],
-    deleteMany: [],
-    searchByQuery: [],
+class RootStore {
+  getDefaultState = () => {
+    return {
+      postOne: [],
+      postMany: [],
+      getAll: [],
+      getOne: [],
+      putOne: [],
+      putMany: [],
+      deleteOne: [],
+      deleteMany: [],
+      searchByQuery: [],
+    };
   };
-};
-const state = getDefaultState();
 
-// Getters for manipulating store state property data before returning it
-const getters = {};
+  // State for returning all store state property data.
+  state = this.getDefaultState();
 
-const actions = {
-  async resetState({ commit }) {
-    await commit("resetState");
-  },
+  // Getters for manipulating store state property data before returning it
+  getters = {};
 
-  async postOneSample({ commit }, data) {
-    try {
-      let request = await ApiReq.postOne(url, data);
-      commit("postOneSample", request);
-    } catch (error) {
-      commit("postOneSample", error.response);
-    }
-  },
+  actions = {
+    async resetState({ commit }) {
+      await commit("resetState");
+    },
 
-  async postManySamples({ commit }, data) {
-    try {
-      let request = await ApiReq.postMany(url, data);
-      commit("postManySamples", request);
-    } catch (error) {
-      commit("postManySamples", error.response);
-    }
-  },
+    async postOne({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.postOne(url, data);
+        commit("postOne", request);
+      } catch (error) {
+        commit("postOne", error.response);
+      }
+    },
 
-  async getAllSamples({ commit }) {
-    try {
-      let request = await ApiReq.getAll(url);
-      commit("getAllSamples", request);
-    } catch (error) {
-      commit("getAllSamples", error.response);
-    }
-  },
+    async postMany({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.postMany(url, data);
+        commit("postMany", request);
+      } catch (error) {
+        commit("postMany", error.response);
+      }
+    },
 
-  async getOneSample({ commit }, id) {
-    try {
-      let request = await ApiReq.getOne(url, id);
-      commit("getOneSample", request);
-    } catch (error) {
-      commit("getOneSample", error.response);
-    }
-  },
+    async getAll({ commit }, url) {
+      try {
+        let request = await ApiReq.getAll(url);
+        commit("getAll", request);
+      } catch (error) {
+        commit("getAll", error.response);
+      }
+    },
 
-  async putOneSample({ commit }, data) {
-    try {
-      let request = await ApiReq.putOne(url, data);
-      commit("putOneSample", request);
-    } catch (error) {
-      commit("putOneSample", error.response);
-    }
-  },
+    async getOne({ commit }, url) {
+      try {
+        let request = await ApiReq.getOne(url);
+        commit("getOne", request);
+      } catch (error) {
+        commit("getOne", error.response);
+      }
+    },
 
-  async putManySamples({ commit }, data) {
-    try {
-      let request = await ApiReq.putMany(url, data);
-      commit("putManySamples", request);
-    } catch (error) {
-      commit("putManySamples", error.response);
-    }
-  },
+    async putOne({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.putOne(url, data);
+        commit("putOne", request);
+      } catch (error) {
+        commit("putOne", error.response);
+      }
+    },
 
-  async deleteOneSample({ commit }, id) {
-    try {
-      let request = await ApiReq.deleteOne(url, id);
-      commit("deleteOneSample", request);
-    } catch (error) {
-      commit("deleteOneSample", error.response);
-    }
-  },
+    async putMany({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.putMany(url, data);
+        commit("putMany", request);
+      } catch (error) {
+        commit("putMany", error.response);
+      }
+    },
 
-  async deleteManySamples({ commit }, data) {
-    try {
-      let request = await ApiReq.deleteMany(url, data);
-      commit("deleteManySamples", request);
-    } catch (error) {
-      commit("deleteManySamples", error.response);
-    }
-  },
+    async deleteOne({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.deleteOne(url, data.id);
+        commit("deleteOne", request);
+      } catch (error) {
+        commit("deleteOne", error.response);
+      }
+    },
 
-  async modelSearch({ commit }, data) {
-    try {
-      let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
-      commit("modelSearch", request);
-    } catch (error) {
-      commit("modelSearch", error.response);
-    }
-  },
-};
+    async deleteMany({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.deleteMany(url, data);
+        commit("deleteMany", request);
+      } catch (error) {
+        commit("deleteMany", error.response);
+      }
+    },
 
-const mutations = {
-  resetState(state) {
-    Object.assign(state, getDefaultState());
-  },
-  postOneSample(state, response) {
-    state.postOne = response;
-  },
-  postManySamples(state, response) {
-    state.postMany = response;
-  },
-  getAllSamples(state, response) {
-    state.getAll = response;
-  },
-  getOneSample(state, response) {
-    state.getOne = response;
-  },
-  putOneSample(state, response) {
-    state.putOne = response;
-  },
-  putManySamples(state, response) {
-    state.putMany = response;
-  },
-  deleteOneSample(state, response) {
-    state.deleteOne = response;
-  },
-  deleteManySamples(state, response) {
-    state.deleteMany = response;
-  },
-  modelSearch(state, response) {
-    state.searchByQuery = response;
-  },
-};
+    async modelSearch({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
+        commit("modelSearch", request);
+      } catch (error) {
+        commit("modelSearch", error.response);
+      }
+    },
+  };
 
-export default { state, getters, actions, mutations };
+  mutations = {
+    resetState(state) {
+      Object.assign(state, this.getDefaultState());
+    },
+    postOne(state, response) {
+      state.postOne = response;
+    },
+    postMany(state, response) {
+      state.postMany = response;
+    },
+    getAll(state, response) {
+      state.getAll = response;
+    },
+    getOne(state, response) {
+      state.getOne = response;
+    },
+    putOne(state, response) {
+      state.putOne = response;
+    },
+    putMany(state, response) {
+      state.putMany = response;
+    },
+    deleteOne(state, response) {
+      state.deleteOne = response;
+    },
+    deleteMany(state, response) {
+      state.deleteMany = response;
+    },
+    modelSearch(state, response) {
+      state.searchByQuery = response;
+    },
+  };
+}
+
+export default RootStore;

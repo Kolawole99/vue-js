@@ -15,8 +15,8 @@ export default {
     }),
   },
   mounted() {
-    const bookID = this.$route.params.id;
-    this.$store.dispatch("Sample/getOneSample", bookID);
+    let url = `client/${this.$route.params.id}`;
+    this.$store.dispatch("Sample/getOne", url);
   },
 };
 </script>

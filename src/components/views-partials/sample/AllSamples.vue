@@ -15,7 +15,9 @@ export default {
     }),
   },
   mounted() {
-    this.$store.dispatch("Sample/getAllSamples");
+    this.$store.dispatch("Sample/resetState");
+    let url = "client/";
+    this.$store.dispatch("Sample/getAll", url);
   },
 };
 </script>

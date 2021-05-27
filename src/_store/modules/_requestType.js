@@ -13,8 +13,8 @@ class ApiRequest {
     return await axios.get(url);
   }
 
-  async getOne(url, id) {
-    return await axios.get(`${url}${id}`);
+  async getOne(url) {
+    return await axios.get(url);
   }
 
   async putOne(url, id, updatedData) {
