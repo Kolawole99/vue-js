@@ -21,6 +21,10 @@ class ApiRequest {
     return await axios.put(`${url}${id}`, updatedData);
   }
 
+  async putMany(url, updateManyData) {
+    return await axios.put(url, updateManyData);
+  }
+
   async deleteOne(url, id) {
     return await axios.delete(`${url}${id}`);
   }
@@ -29,8 +33,8 @@ class ApiRequest {
     return await axios.delete(url, deleteManyData);
   }
 
-  async searchByQuery(keys, keyword) {
-    return await axios.get(`search/${keys}/${keyword}`);
+  async searchByQuery(url, keys, keyword) {
+    return await axios.get(`${url}${keys}/${keyword}`);
   }
 }
 

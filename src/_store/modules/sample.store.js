@@ -10,6 +10,7 @@ const getDefaultState = () => {
     getAll: [],
     getOne: [],
     putOne: [],
+    putMany: [],
     deleteOne: [],
     deleteMany: [],
     searchByQuery: [],
@@ -68,6 +69,42 @@ const actions = {
       commit("putOneSample", error.response);
     }
   },
+
+  async putManySamples({ commit }, data) {
+    try {
+      let request = await ApiReq.putMany(url, data);
+      commit("putManySamples", request);
+    } catch (error) {
+      commit("putManySamples", error.response);
+    }
+  },
+
+  async deleteOneSample({ commit }, id) {
+    try {
+      let request = await ApiReq.deleteOne(url, id);
+      commit("deleteOneSample", request);
+    } catch (error) {
+      commit("deleteOneSample", error.response);
+    }
+  },
+
+  async deleteManySamples({ commit }, data) {
+    try {
+      let request = await ApiReq.deleteMany(url, data);
+      commit("deleteManySamples", request);
+    } catch (error) {
+      commit("deleteManySamples", error.response);
+    }
+  },
+
+  async modelSearch({ commit }, data) {
+    try {
+      let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
+      commit("modelSearch", request);
+    } catch (error) {
+      commit("modelSearch", error.response);
+    }
+  },
 };
 
 const mutations = {
@@ -88,6 +125,18 @@ const mutations = {
   },
   putOneSample(state, response) {
     state.putOne = response;
+  },
+  putManySamples(state, response) {
+    state.putMany = response;
+  },
+  deleteOneSample(state, response) {
+    state.deleteOne = response;
+  },
+  deleteManySamples(state, response) {
+    state.deleteMany = response;
+  },
+  modelSearch(state, response) {
+    state.searchByQuery = response;
   },
 };
 
