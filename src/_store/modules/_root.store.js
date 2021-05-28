@@ -1,4 +1,3 @@
-/* eslint-disable */
 import ApiRequest from "./_requestType";
 
 let ApiReq = new ApiRequest();
@@ -18,10 +17,10 @@ class RootStore {
     };
   }
 
-  // State for returning all store state property data.;
+  // To return all stored data
   state = this.getDefaultState();
 
-  // Getters for manipulating store state property data before returning it
+  // To manipulate data before returning
   getters = {};
 
   actions = {
@@ -80,16 +79,16 @@ class RootStore {
       }
     },
 
-    // async putMany({ commit }, data) {
-    //   try {
-    //     let url = data.url;
-    //     delete data.url;
-    //     let request = await ApiReq.putMany(url, data);
-    //     commit("putMany", request);
-    //   } catch (error) {
-    //     commit("putMany", error.response);
-    //   }
-    // },
+    async putMany({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.putMany(url, data);
+        commit("putMany", request);
+      } catch (error) {
+        commit("putMany", error.response);
+      }
+    },
 
     async deleteOne({ commit }, url) {
       try {
@@ -111,16 +110,16 @@ class RootStore {
       }
     },
 
-    // async modelSearch({ commit }, data) {
-    //   try {
-    //     let url = data.url;
-    //     delete data.url;
-    //     let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
-    //     commit("modelSearch", request);
-    //   } catch (error) {
-    //     commit("modelSearch", error.response);
-    //   }
-    // },
+    async modelSearch({ commit }, data) {
+      try {
+        let url = data.url;
+        delete data.url;
+        let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
+        commit("modelSearch", request);
+      } catch (error) {
+        commit("modelSearch", error.response);
+      }
+    },
   };
 
   mutations = {
@@ -150,18 +149,18 @@ class RootStore {
     putOne(state, response) {
       state.putOne = response;
     },
-    // putMany(state, response) {
-    //   state.putMany = response;
-    // },
+    putMany(state, response) {
+      state.putMany = response;
+    },
     deleteOne(state, response) {
       state.deleteOne = response;
     },
     deleteMany(state, response) {
       state.deleteMany = response;
     },
-    // modelSearch(state, response) {
-    //   state.searchByQuery = response;
-    // },
+    modelSearch(state, response) {
+      state.searchByQuery = response;
+    },
   };
 }
 
