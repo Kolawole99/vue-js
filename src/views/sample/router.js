@@ -3,7 +3,7 @@ export default [
   {
     path: "/sample",
     meta: { layout: "Alternative" },
-    component: () => import(/* webpackChunkName: "sample view" */ "./Sample.vue"),
+    component: () => import(/* webpackChunkName: "sample_view" */ "./Sample.vue"),
     children: [
       {
         path: "",

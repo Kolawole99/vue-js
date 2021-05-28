@@ -4,7 +4,7 @@ import ApiRequest from "./_requestType";
 let ApiReq = new ApiRequest();
 
 class RootStore {
-  getDefaultState = () => {
+  getDefaultState() {
     return {
       postOne: [],
       postMany: [],
@@ -16,9 +16,9 @@ class RootStore {
       deleteMany: [],
       searchByQuery: [],
     };
-  };
+  }
 
-  // State for returning all store state property data.
+  // State for returning all store state property data.;
   state = this.getDefaultState();
 
   // Getters for manipulating store state property data before returning it
@@ -80,22 +80,20 @@ class RootStore {
       }
     },
 
-    async putMany({ commit }, data) {
-      try {
-        let url = data.url;
-        delete data.url;
-        let request = await ApiReq.putMany(url, data);
-        commit("putMany", request);
-      } catch (error) {
-        commit("putMany", error.response);
-      }
-    },
+    // async putMany({ commit }, data) {
+    //   try {
+    //     let url = data.url;
+    //     delete data.url;
+    //     let request = await ApiReq.putMany(url, data);
+    //     commit("putMany", request);
+    //   } catch (error) {
+    //     commit("putMany", error.response);
+    //   }
+    // },
 
-    async deleteOne({ commit }, data) {
+    async deleteOne({ commit }, url) {
       try {
-        let url = data.url;
-        delete data.url;
-        let request = await ApiReq.deleteOne(url, data.id);
+        let request = await ApiReq.deleteOne(url);
         commit("deleteOne", request);
       } catch (error) {
         commit("deleteOne", error.response);
@@ -106,28 +104,36 @@ class RootStore {
       try {
         let url = data.url;
         delete data.url;
-        let request = await ApiReq.deleteMany(url, data);
+        let request = await ApiReq.deleteMany(url, { data: data.id });
         commit("deleteMany", request);
       } catch (error) {
         commit("deleteMany", error.response);
       }
     },
 
-    async modelSearch({ commit }, data) {
-      try {
-        let url = data.url;
-        delete data.url;
-        let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
-        commit("modelSearch", request);
-      } catch (error) {
-        commit("modelSearch", error.response);
-      }
-    },
+    // async modelSearch({ commit }, data) {
+    //   try {
+    //     let url = data.url;
+    //     delete data.url;
+    //     let request = await ApiReq.searchByQuery(url, data.keys, data.keyword);
+    //     commit("modelSearch", request);
+    //   } catch (error) {
+    //     commit("modelSearch", error.response);
+    //   }
+    // },
   };
 
   mutations = {
     resetState(state) {
-      Object.assign(state, this.getDefaultState());
+      state.postOne = [];
+      state.postMany = [];
+      state.getAll = [];
+      state.getOne = [];
+      state.putOne = [];
+      state.putMany = [];
+      state.deleteOne = [];
+      state.deleteMany = [];
+      state.searchByQuery = [];
     },
     postOne(state, response) {
       state.postOne = response;
@@ -144,18 +150,18 @@ class RootStore {
     putOne(state, response) {
       state.putOne = response;
     },
-    putMany(state, response) {
-      state.putMany = response;
-    },
+    // putMany(state, response) {
+    //   state.putMany = response;
+    // },
     deleteOne(state, response) {
       state.deleteOne = response;
     },
     deleteMany(state, response) {
       state.deleteMany = response;
     },
-    modelSearch(state, response) {
-      state.searchByQuery = response;
-    },
+    // modelSearch(state, response) {
+    //   state.searchByQuery = response;
+    // },
   };
 }
 

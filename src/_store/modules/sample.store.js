@@ -1,6 +1,8 @@
 import RootStore from "./_root.store";
 
-let SampleStore = new RootStore();
+class Store extends RootStore {}
+
+let SampleStore = new Store();
 
 let state = SampleStore.state;
 let getters = SampleStore.getters;

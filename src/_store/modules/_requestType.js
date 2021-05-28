@@ -17,20 +17,20 @@ class ApiRequest {
     return await axios.get(url);
   }
 
-  async putOne(url, id, updatedData) {
-    return await axios.put(`${url}${id}`, updatedData);
+  async putOne(url, updatedData) {
+    return await axios.put(url, updatedData);
   }
 
   async putMany(url, updateManyData) {
     return await axios.put(url, updateManyData);
   }
 
-  async deleteOne(url, id) {
-    return await axios.delete(`${url}${id}`);
+  async deleteOne(url) {
+    return await axios.delete(url);
   }
 
-  async deleteMany(url, deleteManyData) {
-    return await axios.delete(url, deleteManyData);
+  async deleteMany(url, deleteManyIdList) {
+    return await axios.delete(url, deleteManyIdList);
   }
 
   async searchByQuery(url, keys, keyword) {
